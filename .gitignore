@@ -42,3 +42,4 @@ jspm_packages/
 # System files
 .DS_Store
 Thumbs.db
+.vscode
