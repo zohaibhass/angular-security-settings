@@ -5,5 +5,11 @@ export interface WorkshopJob {
   deliveryDate: string;
   createdBy: string;
   currentWorker: string;
-  status: 'ORDER_RECEIVED' | 'MATERIAL_READY' | 'IN_PRODUCTION' | 'FINALIZING' | 'DELIVERED';
+  status:
+    | 'ORDER_RECEIVED'
+    | 'MATERIAL_READY'
+    | 'IN_PRODUCTION'
+    | 'FINALIZING'
+    | 'READY_FOR_DELIVERY'
+    | 'DELIVERED';
 }

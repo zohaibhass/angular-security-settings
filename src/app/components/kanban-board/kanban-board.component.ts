@@ -14,6 +14,7 @@ interface Job {
   createdBy: string;
   currentWorker: string;
   status: string;
+  comments?: string;
 }
 
 interface Stage {
@@ -31,6 +32,9 @@ interface Stage {
 export class KanbanBoardComponent implements AfterViewInit {
   @ViewChildren("dropZone") dropZones: QueryList<CdkDropList>;
   connectedLists: CdkDropList[] = [];
+  selectedJob: Job | null = null;
+  showJobDetailsModal = false;
+  activeTab: "prescription" | "comments" = "prescription";
 
   stages: Stage[] = [
     {
@@ -56,6 +60,12 @@ export class KanbanBoardComponent implements AfterViewInit {
       code: "FINALIZING",
       jobs: [],
       color: "bg-pink-100 border-pink-400",
+    },
+    {
+      name: "Ready for Delivery",
+      code: "READY_FOR_DELIVERY",
+      jobs: [],
+      color: "bg-amber-100 border-amber-400",
     },
     {
       name: "Delivered",
@@ -174,4 +184,26 @@ export class KanbanBoardComponent implements AfterViewInit {
       status: "",
     };
   }
+  openJobDetails(job: Job) {
+  this.selectedJob = job;
+  this.showJobDetailsModal = true;
+  this.activeTab = 'prescription';
+}
+
+closeJobDetails() {
+  this.showJobDetailsModal = false;
+  this.selectedJob = null;
+}
+
+setActiveTab(tab: 'prescription' | 'comments') {
+  this.activeTab = tab;
+}
+saveComment() {
+  if (this.selectedJob) {
+    alert(`Comment saved: ${this.selectedJob.comments || "(empty)"}`);
+    // optionally close modal or just show confirmation
+    console.log("[v0] Comment added to", this.selectedJob.orderNo, ":", this.selectedJob.comments);
+  }
+}
+
 }

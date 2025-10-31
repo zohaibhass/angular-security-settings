@@ -524,3 +524,66 @@
   background: #1e3a8a;
   box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
 }
+.tab-header {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  color: var(--color-primary);
+  border-bottom: 3px solid var(--color-primary);
+}
+
+.tab-btn:hover {
+  color: var(--color-primary);
+}
+
+.tab-content {
+  padding: 12px 0;
+}
+
+.tab-pane .form-group {
+  margin-bottom: 12px;
+}
+
+.tab-pane label {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-text-primary);
+}
+
+.tab-pane p,
+.tab-pane textarea {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 8px;
+  resize: vertical;
+  font-family: inherit;
+  background: var(--color-bg-tertiary);
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+}
