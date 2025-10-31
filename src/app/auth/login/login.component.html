@@ -1,0 +1,32 @@
+<div class="login-container">
+  <h2>Login</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+
+    <div class="field">
+      <label>Username</label>
+      <input type="text" formControlName="username" />
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input type="password" formControlName="password" />
+    </div>
+
+    <div class="field">
+      <label>Device Identifier</label>
+      <input type="text" formControlName="deviceIdentifier" />
+    </div>
+
+    <div class="field">
+      <label>Device Secret</label>
+      <input type="text" formControlName="deviceSecret" />
+    </div>
+
+    <button type="submit" [disabled]="loading || loginForm.invalid">
+      {{ loading ? 'Logging in…' : 'Login' }}
+    </button>
+
+    <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+  </form>
+</div>

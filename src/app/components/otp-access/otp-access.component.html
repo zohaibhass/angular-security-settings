@@ -1,0 +1,27 @@
+<div class="security-card">
+  <h3 class="card-title">OTP Access</h3>
+
+  <div class="form-group">
+    <label>Target User ID</label>
+    <input
+      class="form-control"
+      [ngModel]="target"
+      (ngModelChange)="target = $event"
+      placeholder="Enter user ID"
+    />
+  </div>
+
+  <button class="btn primary generate-btn" (click)="generate()">
+    <i class="fas fa-key"></i> Generate OTP
+  </button>
+
+  <div class="otp-list" *ngIf="otps.length > 0">
+    <h4>Active OTP Codes</h4>
+    <ul class="otp-items">
+      <li *ngFor="let o of otps" class="otp-item">
+        <span class="otp-code">{{ o.id }}</span>
+        <span class="otp-expiry">Expires: {{ o.expiresAt }}</span>
+      </li>
+    </ul>
+  </div>
+</div>

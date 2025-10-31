@@ -1,0 +1,89 @@
+<div class="logs-card">
+  <header class="logs-header">
+    <h3>Access Logs</h3>
+    <div class="logs-info">
+      <span class="log-count"
+        >{{ logs.length }} {{ logs.length === 1 ? "entry" : "entries" }}</span
+      >
+    </div>
+  </header>
+
+  <div class="logs-body">
+    <div class="table-container">
+      <table class="logs-table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Device</th>
+            <th>IP</th>
+            <th>Action</th>
+            <th>Result</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let l of logs"
+            class="log-row"
+            [class.success]="l.result === 'Success'"
+            [class.failed]="l.result === 'Failed'"
+          >
+            <td class="user-cell">
+              <div class="user-avatar">{{ getInitials(l.user) }}</div>
+              <span class="user-name">{{ l.user }}</span>
+            </td>
+            <td class="device-cell">
+              <span class="device-icon">PC</span> {{ l.device }}
+            </td>
+            <td class="ip-cell">{{ l.ip }}</td>
+            <td class="action-cell">{{ l.action }}</td>
+            <td class="result-cell">
+              <span
+                class="result-badge"
+                [class.success]="l.result === 'Success'"
+                [class.failed]="l.result === 'Failed'"
+              >
+                <svg
+                  *ngIf="l.result === 'Success'"
+                  class="icon-check"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <svg
+                  *ngIf="l.result === 'Failed'"
+                  class="icon-block"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                {{ l.result }}
+              </span>
+            </td>
+            <td class="time-cell">
+              <div class="time">{{ formatTime(l.time) }}</div>
+              <div class="date">{{ formatDate(l.time) }}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="logs.length === 0" class="empty-state">
+        <p class="empty-title">No access logs yet.</p>
+        <p class="empty-subtitle">
+          Activity will appear here when users log in.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

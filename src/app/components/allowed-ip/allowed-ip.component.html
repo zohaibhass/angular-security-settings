@@ -1,0 +1,77 @@
+<div class="ip-card">
+  <header class="ip-header">
+    <h3>Allowed IP Ranges</h3>
+  </header>
+
+  <div class="ip-body">
+    <button (click)="openPopup()" class="add-btn">
+      <svg class="icon-plus" viewBox="0 0 20 20" fill="currentColor">
+        <path
+          fill-rule="evenodd"
+          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      Add IP Range
+    </button>
+
+    <div class="table-container">
+      <table class="ip-table">
+        <thead>
+          <tr>
+            <th>IP/CIDR</th>
+            <th>Description</th>
+            <th>Allow</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of rules" class="table-row">
+            <td class="ip-cell">{{ r.ipOrCidr }}</td>
+            <td class="desc-cell">{{ r.description || "—" }}</td>
+            <td class="status-cell">
+              <span
+                class="status-badge"
+                [class.allowed]="r.allow"
+                [class.blocked]="!r.allow"
+              >
+                {{ r.allow ? "Allowed" : "Blocked" }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="rules.length === 0" class="empty-state">
+        <p class="empty-title">No IP ranges configured yet.</p>
+        <p class="empty-subtitle">Click "Add IP Range" to get started.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Popup Overlay -->
+<div *ngIf="showPopup" class="overlay">
+  <div class="popup-card">
+    <h3>Add IP Range</h3>
+
+    <div class="form-group">
+      <label>IP/CIDR</label>
+      <input [(ngModel)]="newRule.ipOrCidr" placeholder="e.g. 192.168.1.0/24" />
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <input [(ngModel)]="newRule.description" placeholder="Optional" />
+    </div>
+
+    <div class="">
+      <label>Allow Access:</label>
+      <input type="checkbox" [(ngModel)]="newRule.allow" />
+    </div>
+
+    <div class="actions">
+      <button class="btn-cancel" (click)="closePopup()">Cancel</button>
+      <button class="btn-save" (click)="saveRule()">Save</button>
+    </div>
+  </div>
+</div>

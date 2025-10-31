@@ -1,0 +1,25 @@
+<div class="security-card">
+  <h3 class="card-title">Session Policy</h3>
+
+  <div class="form-group">
+    <label>Access Token Expiry (min):</label>
+    <input
+      type="number"
+      [(ngModel)]="session.accessExpiry"
+      class="form-control"
+      min="1"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Idle Timeout (min):</label>
+    <input
+      type="number"
+      [(ngModel)]="session.idleTimeout"
+      class="form-control"
+      min="1"
+    />
+  </div>
+
+  <button class="btn primary" (click)="save()">Save Changes</button>
+</div>

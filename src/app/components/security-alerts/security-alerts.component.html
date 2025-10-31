@@ -1,0 +1,53 @@
+<div class="security-card">
+  <h3 class="card-title">Security Alerts</h3>
+
+  <div class="alert-options">
+    <label class="checkbox-label">
+      <div class="checkbox-wrapper">
+        <input
+          type="checkbox"
+          [(ngModel)]="alerts.newDevice"
+        />
+        <span class="checkbox-text">
+          <strong>New Device Detection</strong>
+          <span class="description">
+            Get notified when a new device accesses your account
+          </span>
+        </span>
+      </div>
+    </label>
+
+    <label class="checkbox-label">
+      <div class="checkbox-wrapper">
+        <input
+          type="checkbox"
+          [(ngModel)]="alerts.ipViolation"
+        />
+        <span class="checkbox-text">
+          <strong>IP Violation Alert</strong>
+          <span class="description">
+            Get notified of access attempts from unauthorized IP addresses
+          </span>
+        </span>
+      </div>
+    </label>
+  </div>
+
+  <button class="btn primary" (click)="openPopup()">Save Changes</button>
+</div>
+
+<!-- Centered Popup -->
+<div class="popup-overlay" *ngIf="showPopup">
+  <div class="popup">
+    <h3>Add IP Ranges</h3>
+    <input
+      type="text"
+      [(ngModel)]="ipRange"
+      placeholder="e.g. 192.168.1.1 - 192.168.1.255"
+    />
+    <div class="actions">
+      <button class="btn cancel" (click)="closePopup()">Cancel</button>
+      <button class="btn primary" (click)="save()">Save</button>
+    </div>
+  </div>
+</div>

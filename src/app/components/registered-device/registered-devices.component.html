@@ -1,0 +1,94 @@
+<div class="devices-card">
+  <header class="devices-header">
+    <h3>Registered Devices</h3>
+    <div class="devices-info">
+      <span class="device-count"
+        >{{ devices.length }}
+        {{ devices.length === 1 ? "device" : "devices" }}</span
+      >
+    </div>
+  </header>
+
+  <div class="devices-body">
+    <div class="table-container">
+      <table class="devices-table">
+        <thead>
+          <tr>
+            <th>Device</th>
+            <th>User</th>
+            <th>Type</th>
+            <th>Last Seen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let d of devices"
+            class="device-row"
+            [class.online]="isOnline(d.lastSeen)"
+          >
+            <td class="device-name-cell">
+              <div
+                class="device-icon"
+                [class.web]="d.deviceType === 'WEB'"
+                [class.mobile]="d.deviceType === 'MOBILE'"
+              >
+                <svg
+                  *ngIf="d.deviceType === 'WEB'"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M3 5h14a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1zm0 1v7h14V6H3z"
+                  />
+                  <path d="M5 8h1v1H5V8zm0 2h1v1H5v-1zm0 2h1v1H5v-1z" />
+                </svg>
+                <svg
+                  *ngIf="d.deviceType === 'MOBILE'"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M7 2h6a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2zm0 1v14h6V3H7z"
+                  />
+                  <path d="M10 15h0" />
+                </svg>
+              </div>
+              <span class="device-label">{{ d.deviceName }}</span>
+              <span
+                class="online-dot"
+                [class.online]="isOnline(d.lastSeen)"
+              ></span>
+            </td>
+            <td class="user-cell">
+              <div class="user-avatar">{{ getInitials(d.user) }}</div>
+              <span class="user-name">{{ d.user }}</span>
+            </td>
+            <td class="type-cell">
+              <span
+                class="type-badge"
+                [class.web]="d.deviceType === 'WEB'"
+                [class.mobile]="d.deviceType === 'MOBILE'"
+              >
+                {{ d.deviceType }}
+              </span>
+            </td>
+            <td class="last-seen-cell">
+              <div class="time">{{ formatTime(d.lastSeen) }}</div>
+              <div class="date">{{ formatDate(d.lastSeen) }}</div>
+              <div class="status" [class.online]="isOnline(d.lastSeen)">
+                {{ isOnline(d.lastSeen) ? "Online now" : "Offline" }}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="devices.length === 0" class="empty-state">
+        <p class="empty-title">No devices registered yet.</p>
+        <p class="empty-subtitle">
+          Devices will appear here after first login.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

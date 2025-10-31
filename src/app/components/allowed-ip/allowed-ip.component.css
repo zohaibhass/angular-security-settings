@@ -1,0 +1,181 @@
+:host {
+  display: block;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== Card ===== */
+.ip-card {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.ip-header {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  padding: 1.25rem 1.5rem;
+}
+.ip-header h3 {
+  margin: 0;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.ip-body {
+  padding: 1.5rem;
+}
+
+/* ===== Add Button ===== */
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+.add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+.icon-plus {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===== Table ===== */
+.table-container {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.ip-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f9fafb;
+}
+.ip-table th {
+  background: #f3f4f6;
+  padding: 0.875rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ip-table td {
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+}
+.table-row:hover {
+  background: #f1f5f9;
+  transition: background 0.2s;
+}
+
+/* ===== Popup Overlay (Center Popup) ===== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.25s ease;
+}
+
+/* ===== Popup Box ===== */
+.popup-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 360px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.25s ease;
+}
+.popup-card h3 {
+  margin-top: 0;
+  color: #4f46e5;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ===== Form ===== */
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  color: #374151;
+}
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+.form-group.inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ===== Popup Buttons ===== */
+.actions {
+  text-align: right;
+  margin-top: 1.5rem;
+}
+.btn-cancel,
+.btn-save {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+.btn-cancel {
+  background: #e5e7eb;
+  margin-right: 0.5rem;
+}
+.btn-save {
+  background: #4f46e5;
+  color: white;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

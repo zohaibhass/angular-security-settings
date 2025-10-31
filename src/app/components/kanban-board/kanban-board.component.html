@@ -1,0 +1,185 @@
+<div class="kanban-wrapper">
+
+  <div class="kanban-header">
+    <h1 class="kanban-title">Workshop Kanban Board</h1>
+    <p class="kanban-subtitle">Track your jobs across different production stages</p>
+  </div>
+
+  <div class="kanban-container">
+    <div
+      *ngFor="let stage of stages; let i = index"
+      class="kanban-column"
+      [cdkDropListData]="i"
+      cdkDropList
+      #dropZone="cdkDropList"
+      [cdkDropListConnectedTo]="connectedLists"
+      (cdkDropListDropped)="onDrop($event, i)"
+    >
+ 
+      <div class="column-header">
+        <div class="header-top">
+          <h2 class="column-title">{{ stage.name }}</h2>
+          <span class="column-badge">{{ stage.jobs.length }}</span>
+        </div>
+        <div class="column-divider"></div>
+      </div>
+
+      <div class="job-list">
+        <div
+          *ngFor="let job of stage.jobs; let j = index"
+          class="job-card"
+          cdkDrag
+          [cdkDragData]="{ job, stageIndex: i, jobIndex: j }"
+        >
+          <div class="card-header">
+            <div class="card-title-section">
+              <h3 class="card-order-no">{{ job.orderNo }}</h3>
+              <p class="card-job-no">{{ job.jobCardNo }}</p>
+            </div>
+            <button class="card-menu-btn" aria-label="Card options">⋯</button>
+          </div>
+
+          <!-- Tags Section -->
+          <div class="tags-section">
+            <span class="tag tag-year">{{ job.bookingDate | date: 'yyyy' }}</span>
+            <span class="tag tag-worker">{{ job.currentWorker }}</span>
+          </div>
+
+
+          <div class="card-meta">
+            <div class="meta-row">
+              <span class="meta-label">📅 Booking:</span>
+              <span class="meta-value">{{ job.bookingDate | date: 'MMM dd' }}</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">🎯 Delivery:</span>
+              <span class="meta-value">{{ job.deliveryDate | date: 'MMM dd' }}</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">👤 Created by:</span>
+              <span class="meta-value">{{ job.createdBy }}</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button
+              (click)="moveJob(i, j, 'prev')"
+              [disabled]="i === 0"
+              class="action-btn action-btn-prev"
+              [attr.aria-label]="'Move to previous stage'"
+            >
+              ← Back
+            </button>
+            <button
+              (click)="moveJob(i, j, 'next')"
+              [disabled]="i === stages.length - 1"
+              class="action-btn action-btn-next"
+              [attr.aria-label]="'Move to next stage'"
+            >
+              Next →
+            </button>
+          </div>
+        </div>
+        <div *ngIf="stage.jobs.length === 0" class="empty-state">
+          <div class="empty-icon">📭</div>
+          <p class="empty-text">No jobs in this stage</p>
+        </div>
+      </div>
+
+      <button 
+        class="add-card-btn" 
+        (click)="openAddJobModal(i)"
+        aria-label="Add new job"
+      >
+        <span>+</span> Add Job
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showAddJobModal" class="modal-overlay" (click)="closeAddJobModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2 class="modal-title">Add New Job to {{ stages[selectedStageIndex].name }}</h2>
+      
+      <form (ngSubmit)="addJob()" class="modal-form">
+        <div class="form-group">
+          <label for="orderNo">Order No *</label>
+          <input 
+            id="orderNo"
+            type="text" 
+            [(ngModel)]="newJob.orderNo" 
+            name="orderNo"
+            placeholder="e.g., ORD-2025-0035"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="jobCardNo">Job Card No *</label>
+          <input 
+            id="jobCardNo"
+            type="text" 
+            [(ngModel)]="newJob.jobCardNo" 
+            name="jobCardNo"
+            placeholder="e.g., JOB-0013"
+            required
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bookingDate">Booking Date</label>
+            <input 
+              id="bookingDate"
+              type="date" 
+              [(ngModel)]="newJob.bookingDate" 
+              name="bookingDate"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="deliveryDate">Delivery Date</label>
+            <input 
+              id="deliveryDate"
+              type="date" 
+              [(ngModel)]="newJob.deliveryDate" 
+              name="deliveryDate"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="createdBy">Created By</label>
+            <input 
+              id="createdBy"
+              type="text" 
+              [(ngModel)]="newJob.createdBy" 
+              name="createdBy"
+              placeholder="User name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="currentWorker">Current Worker</label>
+            <input 
+              id="currentWorker"
+              type="text" 
+              [(ngModel)]="newJob.currentWorker" 
+              name="currentWorker"
+              placeholder="Technician name"
+            />
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" (click)="closeAddJobModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn-submit">
+            Add Job
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

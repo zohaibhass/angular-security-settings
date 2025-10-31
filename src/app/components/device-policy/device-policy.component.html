@@ -1,0 +1,38 @@
+<div class="security-card">
+  <h3 class="card-title">Device Policy</h3>
+
+  <div class="form-group">
+    <label>Approval Mode</label>
+    <div class="select-wrapper">
+      <select
+        class="form-control"
+        [ngModel]="policy.approvalMode"
+        (ngModelChange)="policy.approvalMode = $event"
+      >
+        <option value="Auto">Automatic Approval</option>
+        <option value="Manual">Manual Review</option>
+        <option value="OTP">OTP Verification</option>
+      </select>
+    </div>
+    <small class="help-text">
+      Choose how new devices are approved for access
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label>Maximum Allowed Devices</label>
+    <input
+      type="number"
+      class="form-control"
+      [ngModel]="policy.maxDevices"
+      (ngModelChange)="policy.maxDevices = $event"
+      min="1"
+      max="10"
+    />
+    <small class="help-text">
+      Limit the number of devices that can be registered (1–10)
+    </small>
+  </div>
+
+  <button class="btn primary" (click)="save()">Save Changes</button>
+</div>
